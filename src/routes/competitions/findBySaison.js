@@ -1,8 +1,8 @@
 const { Competition } = require('../../db/sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
 
 module.exports = (app) => {
-    app.get('/api/competitions', (req, res) => {
+    app.get('/api/competitions', auth, (req, res) => {
    
         //?idSaison=*
         const idSaison = parseInt(req.query.idSaison)

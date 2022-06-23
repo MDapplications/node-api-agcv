@@ -1,9 +1,9 @@
 const { Competition } = require('../../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
   
 module.exports = (app) => {
-    app.post('/api/competitions', (req, res) => {
+    app.post('/api/competitions', auth, (req, res) => {
         Competition.create(req.body)
         .then(compet => {
             const message = `La compétition ${req.body.name} a bien été crée.`

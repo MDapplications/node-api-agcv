@@ -1,8 +1,8 @@
 const { Commande } = require('../../db/sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
 
 module.exports = (app) => {
-    app.get('/api/commandes/:id', (req, res) => {
+    app.get('/api/commandes/:id', auth, (req, res) => {
         Commande.findByPk(req.params.id)
         .then(commande => {
             //gestion de l'erreur 404

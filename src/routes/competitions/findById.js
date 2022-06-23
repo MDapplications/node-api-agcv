@@ -1,8 +1,8 @@
 const { Competition } = require('../../db/sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
 
 module.exports = (app) => {
-    app.get('/api/competitions/:id', (req, res) => {
+    app.get('/api/competitions/:id', auth, (req, res) => {
         Competition.findByPk(req.params.id)
         .then(compet => {
             //gestion de l'erreur 404

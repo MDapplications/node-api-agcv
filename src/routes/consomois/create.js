@@ -1,9 +1,9 @@
 const { ConsoMois } = require('../../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
   
 module.exports = (app) => {
-    app.post('/api/consomois', (req, res) => {
+    app.post('/api/consomois', auth,(req, res) => {
         ConsoMois.create(req.body)
         .then(mois => {
             const message = `Le consoMois de ${req.body.name} a bien été crée.`

@@ -1,8 +1,8 @@
 const { ConsoMois } = require('../../db/sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
 
 module.exports = (app) => {
-    app.get('/api/consomois', (req, res) => {
+    app.get('/api/consomois', auth, (req, res) => {
    
         //?idTypeVolant=*
         const idTypeVolant = parseInt(req.query.idTypeVolant)

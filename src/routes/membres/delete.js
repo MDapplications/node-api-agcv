@@ -1,8 +1,8 @@
 const { Membre } = require('../../db/sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
   
 module.exports = (app) => {
-    app.delete('/api/membres/:id', (req, res) => {
+    app.delete('/api/membres/:id', auth, (req, res) => {
         Membre.findByPk(req.params.id)
         .then(membre => {
             //gestion de l'erreur 404

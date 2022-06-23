@@ -1,9 +1,9 @@
 const { Competition } = require('../../db/sequelize')
 const { ValidationError } = require('sequelize')
-//const auth = require('../../auth/auth')
+const auth = require('../../auth/auth')
   
 module.exports = (app) => {
-    app.put('/api/competitions/:id', (req, res) => {
+    app.put('/api/competitions/:id', auth, (req, res) => {
         const id = req.params.id
         Competition.update(req.body, {where: {id}})
         .then(_ => {

@@ -1,9 +1,9 @@
 const { Restock } = require('../../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
   
 module.exports = (app) => {
-    app.post('/api/restocks', (req, res) => {
+    app.post('/api/restocks', auth, (req, res) => {
         Restock.create(req.body)
         .then(restock => {
             const message = `Le restock a bien été crée.`

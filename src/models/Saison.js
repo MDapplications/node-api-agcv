@@ -8,6 +8,9 @@ module.exports = (sequelize, DataTypes) => {
         anneeDebut: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: {
+                msg: `L'année de début est déjà pris.`
+            },
             validate: {
                 isInt: { msg: `Utilisez uniquement des nombres entiers pour l'année de début de saison.`},
                 notNull: { msg: `l'année de début de saison est une propriété requise.`},
@@ -20,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
         anneeFin: {
             type: DataTypes.INTEGER,
             allowNull: false,
+            unique: {
+                msg: `L'année de fin est déjà pris.`
+            },
             validate: {
                 isInt: { msg: `Utilisez uniquement des nombres entiers pour l'année de fin de saison.`},
                 notNull: { msg: `l'année de fin de saison est une propriété requise.`},

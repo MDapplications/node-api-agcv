@@ -1,9 +1,9 @@
 const { Saison } = require('../../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
   
 module.exports = (app) => {
-    app.post('/api/saisons', (req, res) => {
+    app.post('/api/saisons', auth, (req, res) => {
         Saison.create(req.body)
         .then(saison => {
             const message = `La saison ${req.body.anneeDebut} - ${req.body.anneeFin} a bien été crée.`

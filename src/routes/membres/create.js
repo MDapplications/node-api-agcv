@@ -1,9 +1,9 @@
 const { Membre } = require('../../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
   
 module.exports = (app) => {
-    app.post('/api/membres', (req, res) => {
+    app.post('/api/membres', auth, (req, res) => {
         Membre.create(req.body)
         .then(membre => {
             const message = `La membre ${req.body.prenom} ${req.body.nom} a bien été crée.`

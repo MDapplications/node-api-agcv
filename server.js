@@ -32,7 +32,6 @@ require('./src/routes/commandes/create')(app)
 require('./src/routes/commandes/delete')(app)
 require('./src/routes/commandes/findById')(app)
 require('./src/routes/commandes/findAll')(app)
-require('./src/routes/commandes/findBySaison')(app)
 require('./src/routes/commandes/update')(app)
 
 //Competitions
@@ -58,23 +57,50 @@ require('./src/routes/membres/update')(app)
 
 //PrixTubes
 require('./src/routes/prixtubes/create')(app)
+require('./src/routes/prixtubes/delete')(app)
+require('./src/routes/prixtubes/findById')(app)
+require('./src/routes/prixtubes/findAll')(app)
+require('./src/routes/prixtubes/update')(app)
 
 //Restocks
 require('./src/routes/restocks/create')(app)
+require('./src/routes/restocks/delete')(app)
+require('./src/routes/restocks/findById')(app)
+require('./src/routes/restocks/findAll')(app)
+require('./src/routes/restocks/update')(app)
 
 //Saisons
 require('./src/routes/saisons/create')(app)
+require('./src/routes/saisons/delete')(app)
+require('./src/routes/saisons/findById')(app)
+require('./src/routes/saisons/findAll')(app)
+require('./src/routes/saisons/update')(app)
 
 //Stocks
 //require('./src/routes/stocks/create')(app)
 
 //TypeTubes
 require('./src/routes/typetubes/create')(app)
+require('./src/routes/typetubes/delete')(app)
+require('./src/routes/typetubes/findById')(app)
+require('./src/routes/typetubes/findAll')(app)
+require('./src/routes/typetubes/update')(app)
 
 //TypeVolants
 require('./src/routes/typevolants/create')(app)
+require('./src/routes/typevolants/delete')(app)
+require('./src/routes/typevolants/findById')(app)
+require('./src/routes/typevolants/findAll')(app)
+require('./src/routes/typevolants/update')(app)
 
 
+//Users
+require('./src/routes/users/create')(app)
+require('./src/routes/users/delete')(app)
+require('./src/routes/users/findById')(app)
+require('./src/routes/users/findAll')(app)
+require('./src/routes/users/update')(app)
+require('./src/routes/login')(app)
 
 
 //gestion de l'erreur 404 :

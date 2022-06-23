@@ -1,9 +1,9 @@
 const { Commande } = require('../../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
   
 module.exports = (app) => {
-    app.post('/api/commandes', (req, res) => {
+    app.post('/api/commandes', auth, (req, res) => {
         Commande.create(req.body)
         .then(commande => {
             const message = `La commande a bien été crée.`

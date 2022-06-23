@@ -9,6 +9,7 @@ const PrixTubeModel = require('../models/PrixTube')
 const RestockModel = require('../models/Restock')
 const TypeTubeModel = require('../models/TypeTube')
 const TypeVolantModel = require('../models/TypeVolant')
+const UserModel = require('../models/User')
 
 //const pokemons = require('./mock-pokemon') 
 const bcrypt = require('bcrypt')
@@ -64,6 +65,7 @@ const PrixTube = PrixTubeModel(sequelize, DataTypes)
 const Restock = RestockModel(sequelize, DataTypes)
 const TypeTube = TypeTubeModel(sequelize, DataTypes)
 const TypeVolant = TypeVolantModel(sequelize, DataTypes)
+const User = UserModel(sequelize, DataTypes)
 
 
 //Synchronisation des models avec la BDD
@@ -84,5 +86,5 @@ const initDb = () => {
 
 //exports
 module.exports = { 
-  initDb, Saison, Commande, Competition, ConsoMois, Membre, PrixTube, Restock, TypeTube, TypeVolant
+  initDb, User, Saison, Commande, Competition, ConsoMois, Membre, PrixTube, Restock, TypeTube, TypeVolant
 } 

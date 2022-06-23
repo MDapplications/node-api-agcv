@@ -1,8 +1,8 @@
 const { ConsoMois } = require('../../db/sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
 
 module.exports = (app) => {
-    app.get('/api/consomois/:id', (req, res) => {
+    app.get('/api/consomois/:id', auth, (req, res) => {
         ConsoMois.findByPk(req.params.id)
         .then(mois => {
             //gestion de l'erreur 404

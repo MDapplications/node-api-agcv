@@ -1,9 +1,9 @@
 const { TypeTube } = require('../../db/sequelize')
 const { ValidationError, UniqueConstraintError } = require('sequelize')
-//const auth = require('../auth/auth')
+const auth = require('../../auth/auth')
   
 module.exports = (app) => {
-    app.post('/api/membres', (req, res) => {
+    app.post('/api/typetubes', auth, (req, res) => {
         TypeTube.create(req.body)
         .then(typetube => {
             const message = `Le TypeTube ${req.body.name} (${req.body.usage}) a bien été crée.`
