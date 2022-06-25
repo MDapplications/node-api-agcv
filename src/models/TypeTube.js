@@ -1,5 +1,4 @@
 const validNames = ['Compétition', 'Entrainement', 'Plastique']
-const validTypes = ['normal', 'test']
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('TypeTube', {
@@ -8,15 +7,6 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             autoIncrement: true
         },
-        usage: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notEmpty: { msg: `L'usage ne doit pas être vide.`},
-                notNull: { msg: `L'usage est une propriété requise.`},
-                isIn: [validTypes]
-            }
-        },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -24,6 +14,19 @@ module.exports = (sequelize, DataTypes) => {
                 notEmpty: { msg: 'Le nom du type de tube ne doit pas être vide.'},
                 notNull: { msg: 'Le nom du type de tube est une propriété requise.'},
                 isIn: [validNames]
+            }
+        },
+        comment: {
+            type: DataTypes.STRING,
+            validate: {
+                min: {
+                    args: [0],
+                    msg : `Le commentaire doit faire au moins un caractère.`
+                },
+                max: {
+                    args: [20],
+                    msg : `Le commentaire ne doit pas dépasser 20 caractères.`
+                }
             }
         },
         orderable: {
@@ -45,6 +48,14 @@ module.exports = (sequelize, DataTypes) => {
                     args: [0],
                     msg : 'le seuil bas ne doit pas être inférieur à 0'
                 }
+            }
+        },
+        default: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            validate: {
+                isBoolean: { msg: 'Utilisez uniquement un booléen pour la propriété default.'},
+                notNull: { msg: 'La propriété default est requise.'},
             }
         },
     }, 

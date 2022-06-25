@@ -1,7 +1,7 @@
 const { User } = require('../db/sequelize')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const privateKey = require('../auth/private_key')  
+const jwt = require('jsonwebtoken') 
+const {NODE_APP_PRIVATE_KEY} = process.env
 
 
 module.exports = (app) => {
@@ -21,7 +21,7 @@ module.exports = (app) => {
                 //JWT
                 const token = jwt.sign(
                     {userId: user.id},
-                    privateKey,
+                    `${NODE_APP_PRIVATE_KEY}`,
                     { expiresIn: '24h'}
                 )
 

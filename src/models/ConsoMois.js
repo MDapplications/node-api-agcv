@@ -40,12 +40,12 @@ module.exports = (sequelize, DataTypes) => {
                 }
             }
         },
-        idTypeVolant: {
+        idConsoVolant: {
             type: DataTypes.INTEGER,
             allowNull: false,
             validate: {
-                isInt: { msg: `Utilisez uniquement des nombres entiers pour l'idTypeVolant.`},
-                notNull: { msg: `l'idTypeVolant est une propriété requise.`},
+                isInt: { msg: `Utilisez uniquement des nombres entiers pour l'idConsoVolant.`},
+                notNull: { msg: `l'idConsoVolant est une propriété requise.`},
             }
         },
         idPrixTube: {

@@ -8,12 +8,8 @@ const MembreModel = require('../models/Membre')
 const PrixTubeModel = require('../models/PrixTube')
 const RestockModel = require('../models/Restock')
 const TypeTubeModel = require('../models/TypeTube')
-const TypeVolantModel = require('../models/TypeVolant')
+const ConsoVolantModel = require('../models/ConsoVolant')
 const UserModel = require('../models/User')
-
-//const pokemons = require('./mock-pokemon') 
-const bcrypt = require('bcrypt')
-
 
 //Configuration de la Base de données
 let sequelize 
@@ -64,21 +60,14 @@ const Membre = MembreModel(sequelize, DataTypes)
 const PrixTube = PrixTubeModel(sequelize, DataTypes)
 const Restock = RestockModel(sequelize, DataTypes)
 const TypeTube = TypeTubeModel(sequelize, DataTypes)
-const TypeVolant = TypeVolantModel(sequelize, DataTypes)
+const ConsoVolant = ConsoVolantModel(sequelize, DataTypes)
 const User = UserModel(sequelize, DataTypes)
 
 
 //Synchronisation des models avec la BDD
 const initDb = () => {
     return sequelize.sync({force: true}).then(_ => {
-
             console.log('INIT MariaDB')
-
-/*          bcrypt.hash('pikachu', 10)
-            .then(hash => User.create({username: 'pikachu', password: hash}))
-            .then(user => console.log(user.toJSON()))
- */
-
             console.log('La base de donnée a bien été initialisée !')
         })
 }
@@ -86,5 +75,5 @@ const initDb = () => {
 
 //exports
 module.exports = { 
-  initDb, User, Saison, Commande, Competition, ConsoMois, Membre, PrixTube, Restock, TypeTube, TypeVolant
+  initDb, User, Saison, Commande, Competition, ConsoMois, Membre, PrixTube, Restock, TypeTube, ConsoVolant
 } 

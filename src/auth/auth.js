@@ -10,7 +10,7 @@ module.exports = (req, res, next) => {
     }
 
     const token = authorizationHeader.split(' ')[1]
-    const decodedToken = jwt.verify(token, NODE_APP_PRIVATE_KEY, (error, decodedToken) => {
+    const decodedToken = jwt.verify(token, `${NODE_APP_PRIVATE_KEY}`, (error, decodedToken) => {
         if(error) {
             const message = `L'utilisateur n'est pas autorisé à accèder à cette ressource.`
             return res.status(401).json({ message, data: error })

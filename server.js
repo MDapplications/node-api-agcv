@@ -86,12 +86,12 @@ require('./src/routes/typetubes/findById')(app)
 require('./src/routes/typetubes/findAll')(app)
 require('./src/routes/typetubes/update')(app)
 
-//TypeVolants
-require('./src/routes/typevolants/create')(app)
-require('./src/routes/typevolants/delete')(app)
-require('./src/routes/typevolants/findById')(app)
-require('./src/routes/typevolants/findAll')(app)
-require('./src/routes/typevolants/update')(app)
+//ConsoVolants
+require('./src/routes/consovolants/create')(app)
+require('./src/routes/consovolants/delete')(app)
+require('./src/routes/consovolants/findById')(app)
+require('./src/routes/consovolants/findAll')(app)
+require('./src/routes/consovolants/update')(app)
 
 
 //Users
