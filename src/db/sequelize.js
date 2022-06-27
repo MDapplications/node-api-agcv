@@ -1,4 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize')
+require('dotenv').config()
 
 const SaisonModel = require('../models/Saison')
 const CommandeModel = require('../models/Commande')
@@ -11,28 +12,35 @@ const TypeTubeModel = require('../models/TypeTube')
 const ConsoVolantModel = require('../models/ConsoVolant')
 const UserModel = require('../models/User')
 
+const NODE_ENV = 'production' 
+
 //Configuration de la Base de données
 let sequelize 
+
 
 const { NODE_APP_MARIADB_DATABASE, 
         NODE_APP_MARIADB_USER,
         NODE_APP_MARIADB_PASSWORD,
-        NODE_APP_MARIADB_HOST} = process.env
+        NODE_APP_MARIADB_PORT,
+        NODE_APP_MARIADB_HOST } = process.env
 
-if (process.env.NODE_ENV === 'production') {
+
+if (NODE_ENV === 'production') {
     sequelize = new Sequelize(
-        `${NODE_APP_MARIADB_DATABASE}`,
-        `${NODE_APP_MARIADB_USER}`,
-        `${NODE_APP_MARIADB_PASSWORD}`,
+        NODE_APP_MARIADB_DATABASE,
+        NODE_APP_MARIADB_USER,
+        NODE_APP_MARIADB_PASSWORD,
         {
-            host: `${NODE_APP_MARIADB_HOST}`,
+            port: NODE_APP_MARIADB_PORT,
+            host: NODE_APP_MARIADB_HOST,
             dialect: 'mariadb',
             dialectOptions: {
                 timezone: 'Etc/GMT-2'
             },
-            logging: true
+            logging: console.log
         }
-    )
+    ) 
+    console.log('Connexion BDD production...')
 } else {
     sequelize = new Sequelize(
         'bdd_agcv',
@@ -47,7 +55,8 @@ if (process.env.NODE_ENV === 'production') {
             logging: false
         }
     )
-}
+    console.log('Connexion BDD development...')
+} 
 
 
 
@@ -66,7 +75,7 @@ const User = UserModel(sequelize, DataTypes)
 
 //Synchronisation des models avec la BDD
 const initDb = () => {
-    return sequelize.sync({force: true}).then(_ => {
+    return sequelize.sync().then(_ => {
             console.log('INIT MariaDB')
             console.log('La base de donnée a bien été initialisée !')
         })

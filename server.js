@@ -4,10 +4,11 @@ const sequelize = require('./src/db/sequelize')
 const cors = require('cors')
 
 
+
 //configuration de l'application
 //------------------------------
 const app = express()
-const port = process.env.PORT || 3000
+const port = 3017
 
 //Middlewares
 //-----------
