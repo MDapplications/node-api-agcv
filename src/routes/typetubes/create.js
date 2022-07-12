@@ -6,7 +6,7 @@ module.exports = (app) => {
     app.post('/api/typetubes', auth, (req, res) => {
         TypeTube.create(req.body)
         .then(typetube => {
-            const message = `Le TypeTube ${req.body.name} (${req.body.usage}) a bien été crée.`
+            const message = `Le TypeTube ${req.body.name} a bien été crée.`
             res.json({ message, data: typetube })
         })
         .catch(err => {

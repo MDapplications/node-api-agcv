@@ -41,8 +41,8 @@ module.exports = (sequelize, DataTypes) => {
                 isDecimal: { msg: `Utilisez uniquement un nombre pour le prix membre.`},
                 notNull: { msg: `le prix membre est une propriété requise.`},
                 min: {
-                    args: [0.01],
-                    msg : `le prix membre ne doit pas être inférieur à 0.01`
+                    args: [0.00],
+                    msg : `le prix membre ne doit pas être inférieur à 0.00`
                 }
             }
         },

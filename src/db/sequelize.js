@@ -12,7 +12,7 @@ const TypeTubeModel = require('../models/TypeTube')
 const ConsoVolantModel = require('../models/ConsoVolant')
 const UserModel = require('../models/User')
 
-const NODE_ENV =  'production' /* 'development' */
+const NODE_ENV =  /*'production' */ 'development' 
 
 //Configuration de la Base de données
 let sequelize 
