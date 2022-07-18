@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
                 isInt: { msg: `Utilisez uniquement des nombres entiers pour l'idTypeTube.`},
                 notNull: { msg: `l'idTypeTube est une propriété requise.`},
             }
-        }
+        } 
     }, 
     {
         timestamps: true,

@@ -91,7 +91,7 @@ require('./src/routes/typetubes/update')(app)
 require('./src/routes/consovolants/create')(app)
 require('./src/routes/consovolants/delete')(app)
 require('./src/routes/consovolants/findById')(app)
-require('./src/routes/consovolants/findAll')(app)
+require('./src/routes/consovolants/findBySaison')(app)
 require('./src/routes/consovolants/update')(app)
 
 

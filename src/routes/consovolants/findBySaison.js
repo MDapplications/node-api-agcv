@@ -1,8 +1,8 @@
-const { Commande } = require('../../db/sequelize')
-//const auth = require('../auth/auth')
+const { ConsoVolant } = require('../../db/sequelize')
+const auth = require('../../auth/auth')
 
 module.exports = (app) => {
-    app.get('/api/commandes', (req, res) => {
+    app.get('/api/consovolants', auth, (req, res) => {
    
         //?idSaison=*
         const idSaison = parseInt(req.query.idSaison)
@@ -19,13 +19,13 @@ module.exports = (app) => {
         } 
 
         //recherche standard
-        return Commande.findAndCountAll({where: {idSaison}})
+        return ConsoVolant.findAndCountAll({where: {idSaison}})
         .then(({count, rows}) => {
-            const message = `Il y a ${count} commandes qui correspondent à l'idSaison ${idSaison}.`
+            const message = `Il y a ${count} consommations de volant qui correspondent à l'idSaison ${idSaison}.`
             res.json({message, data: rows})
         })
         .catch(err => {
-            const message = `La liste des commandes n'a pas pu être récupérée. Réessayez dans quelques instants.`
+            const message = `La liste des consommations de volant n'a pas pu être récupérée. Réessayez dans quelques instants.`
             res.status(500).json({message, data: err})
         })
         
