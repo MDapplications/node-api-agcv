@@ -1,4 +1,4 @@
-const { ConsoMois } = require('../../db/sequelize')
+const { ConsoMois, PrixTube } = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
@@ -19,7 +19,7 @@ module.exports = (app) => {
         } 
 
         //recherche standard
-        return ConsoMois.findAndCountAll({where: {idConsoVolant}})
+        return ConsoMois.findAndCountAll({where: {idConsoVolant}, include: PrixTube})
         .then(({count, rows}) => {
             const message = `Il y a ${count} ConsoMois qui correspondent à l'idConsoVolant ${idConsoVolant}.`
             res.json({message, data: rows})

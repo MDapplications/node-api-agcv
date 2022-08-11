@@ -1,9 +1,9 @@
-const { ConsoVolant } = require('../../db/sequelize')
+const { ConsoVolant, ConsoMois } = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
-    app.get('/api/typevolants/:id', auth, (req, res) => {
-        ConsoVolant.findByPk(req.params.id)
+    app.get('/api/consovolants/:id', auth, (req, res) => {
+        ConsoVolant.findByPk(req.params.id, {include: ConsoMois})
         .then(consovolant => {
             //gestion de l'erreur 404
             if(consovolant === null) {

@@ -1,4 +1,4 @@
-const { Saison } = require('../../db/sequelize')
+const { Saison, ConsoVolant, Commande, Competition} = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
@@ -20,8 +20,7 @@ module.exports = (app) => {
                 return res.status(400).json({message}) 
             }
 
-            //recherche standard
-            return Saison.findAndCountAll({where: {anneeDebut}})
+            return Saison.findAndCountAll({where: {anneeDebut}, include: [ConsoVolant, Commande, Competition]})
             .then(({count, rows}) => {
                 const message = `Il y a ${count} commandes qui correspondent à l'année de début ${anneeDebut}.`
                 res.json({message, data: rows})
@@ -48,8 +47,7 @@ module.exports = (app) => {
                 return res.status(400).json({message}) 
             }
 
-            //recherche standard
-            return Saison.findAndCountAll({where: {anneeFin}})
+            return Saison.findAndCountAll({where: {anneeFin}, include: [ConsoVolant, Commande, Competition]})
             .then(({count, rows}) => {
                 const message = `Il y a ${count} saisons qui correspondent à l'année de fin ${anneeFin}.`
                 res.json({message, data: rows})
@@ -74,7 +72,7 @@ module.exports = (app) => {
             const active = (query === 'true')
 
             //recherche standard
-            return Saison.findAndCountAll({where: {active}, order: [ ['anneeDebut', 'DESC'] ]})
+            return Saison.findAndCountAll({where: {active}, order: [ ['anneeDebut', 'DESC'] ], include: [ConsoVolant, Commande, Competition]})
             .then(({count, rows}) => {
                 const message = `Il y a ${count} saisons qui correspondent.`
                 res.json({message, data: rows})

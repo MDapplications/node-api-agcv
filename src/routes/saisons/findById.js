@@ -1,9 +1,10 @@
-const { Saison } = require('../../db/sequelize')
+const { Saison, ConsoVolant, Commande, Competition} = require('../../db/sequelize')
 const auth = require('../../auth/auth')
+
 
 module.exports = (app) => {
     app.get('/api/saisons/:id', auth, (req, res) => {
-        Saison.findByPk(req.params.id)
+        Saison.findByPk(req.params.id, {include: [ConsoVolant, Commande, Competition]})
         .then(saison => {
             //gestion de l'erreur 404
             if(saison === null) {
