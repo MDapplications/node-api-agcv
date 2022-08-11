@@ -1,9 +1,9 @@
-const { Commande } = require('../../db/sequelize')
+const { Commande, Membre, PrixTube, ConsoMois } = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
     app.get('/api/commandes/:id', auth, (req, res) => {
-        Commande.findByPk(req.params.id)
+        Commande.findByPk(req.params.id, {include: [Membre, PrixTube, ConsoMois]})
         .then(commande => {
             //gestion de l'erreur 404
             if(commande === null) {

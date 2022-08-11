@@ -1,11 +1,11 @@
-const { ConsoVolant } = require('../../db/sequelize')
+const { ConsoVolant, ConsoMois, TypeTube } = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
     app.get('/api/consovolants', auth, (req, res) => {
 
         //findAll standard : 
-        ConsoVolant.findAll()
+        ConsoVolant.findAll({include: [ConsoMois, TypeTube]})
         .then(consovolants => {
             const message = 'La liste des consommations de volant a bien été récupérée.'
             res.json({ message, data: consovolants })

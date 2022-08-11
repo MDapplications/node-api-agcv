@@ -1,4 +1,4 @@
-const { Commande } = require('../../db/sequelize')
+const { Commande, Membre, PrixTube, ConsoMois } = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
@@ -21,7 +21,7 @@ module.exports = (app) => {
             } 
 
             //recherche standard
-            return Commande.findAndCountAll({where: {idSaison}})
+            return Commande.findAndCountAll({where: {idSaison}, order: [ ['id', 'DESC'] ], include: [Membre, PrixTube, ConsoMois]})
             .then(({count, rows}) => {
                 const message = `Il y a ${count} commandes qui correspondent à l'idSaison ${idSaison}.`
                 res.json({message, data: rows})
@@ -33,7 +33,7 @@ module.exports = (app) => {
         }
 
         //findAll standard : 
-        Commande.findAll()
+        Commande.findAll({include: [Membre, PrixTube, ConsoMois]})
         .then(commandes => {
             const message = 'La liste des commandes a bien été récupérée.'
             res.json({ message, data: commandes })

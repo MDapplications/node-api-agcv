@@ -84,7 +84,7 @@ module.exports = (app) => {
         }
 
         //findAll standard : 
-        Saison.findAll()
+        Saison.findAll({include: [ConsoVolant, Commande, Competition]})
         .then(saisons => {
             const message = 'La liste des saisons a bien été récupérée.'
             res.json({ message, data: saisons })
