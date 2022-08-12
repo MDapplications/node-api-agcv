@@ -1,4 +1,4 @@
-const { PrixTube } = require('../../db/sequelize')
+const { PrixTube, TypeTube } = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
@@ -18,7 +18,7 @@ module.exports = (app) => {
             const actif = (query === 'true')
 
             //recherche standard
-            return PrixTube.findAndCountAll({where: {actif}})
+            return PrixTube.findAndCountAll({where: {actif}, include: [TypeTube]})
             .then(({count, rows}) => {
                 const message = `Il y a ${count} prix de tubes qui correspondent à actif = ${actif}.`
                 res.json({message, data: rows})
@@ -31,7 +31,7 @@ module.exports = (app) => {
         }
 
         //findAll standard : 
-        PrixTube.findAll()
+        PrixTube.findAll({include: [TypeTube]})
         .then(prix => {
             const message = 'La liste des prix de tubes a bien été récupérée.'
             res.json({ message, data: prix })

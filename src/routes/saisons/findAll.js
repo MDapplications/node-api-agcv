@@ -1,4 +1,4 @@
-const { Saison, ConsoVolant, Commande, Competition} = require('../../db/sequelize')
+const { Saison, ConsoVolant, Commande, Competition, ConsoMois, TypeTube, PrixTube, Membre} = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
@@ -72,7 +72,16 @@ module.exports = (app) => {
             const active = (query === 'true')
 
             //recherche standard
-            return Saison.findAndCountAll({where: {active}, order: [ ['anneeDebut', 'DESC'] ], include: [ConsoVolant, Commande, Competition]})
+            return Saison.findAndCountAll({
+                        where: {active}, 
+                        order: [ ['anneeDebut', 'DESC'] ], 
+                        include: [
+                            {model: ConsoVolant, include: [
+                                {model: ConsoMois, include: [PrixTube, Commande]},
+                                {model: TypeTube}]},
+                            {model: Commande, include: [Membre, PrixTube, ConsoMois]},
+                            {model: Competition}
+                        ]})
             .then(({count, rows}) => {
                 const message = `Il y a ${count} saisons qui correspondent.`
                 res.json({message, data: rows})
@@ -84,7 +93,14 @@ module.exports = (app) => {
         }
 
         //findAll standard : 
-        Saison.findAll({include: [ConsoVolant, Commande, Competition]})
+        Saison.findAll({order: [ ['id', 'DESC'] ], 
+                        include: [
+                            {model: ConsoVolant, include: [
+                                {model: ConsoMois, include: [PrixTube, Commande]},
+                                {model: TypeTube}]},
+                            {model: Commande, include: [Membre, PrixTube, ConsoMois]},
+                            {model: Competition}
+                        ]})
         .then(saisons => {
             const message = 'La liste des saisons a bien été récupérée.'
             res.json({ message, data: saisons })
