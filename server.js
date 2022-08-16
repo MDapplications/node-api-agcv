@@ -24,7 +24,7 @@ sequelize.initDb()
 //-----------
 
 //home
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.json('Hello, the API AGCV is started !')
 })
 
@@ -78,7 +78,11 @@ require('./src/routes/saisons/findAll')(app)
 require('./src/routes/saisons/update')(app)
 
 //Stocks
-//require('./src/routes/stocks/create')(app)
+require('./src/routes/stocks/create')(app)
+require('./src/routes/stocks/delete')(app)
+require('./src/routes/stocks/findById')(app)
+require('./src/routes/stocks/findAll')(app)
+require('./src/routes/stocks/update')(app)
 
 //TypeTubes
 require('./src/routes/typetubes/create')(app)

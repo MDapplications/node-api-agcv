@@ -1,4 +1,4 @@
-const { Saison, ConsoVolant, Commande, Competition, ConsoMois, TypeTube, PrixTube, Membre} = require('../../db/sequelize')
+const { Saison, ConsoVolant, Commande, Competition, ConsoMois, TypeTube, PrixTube, Membre, Stock, Restock} = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
@@ -20,7 +20,18 @@ module.exports = (app) => {
                 return res.status(400).json({message}) 
             }
 
-            return Saison.findAndCountAll({where: {anneeDebut}, include: [ConsoVolant, Commande, Competition]})
+            return Saison.findAndCountAll({where: {anneeDebut}, 
+                                            include: [
+                                                {model: ConsoVolant, include: [
+                                                    {model: ConsoMois, include: [PrixTube, Commande]},
+                                                    {model: TypeTube}]},
+                                                {model: Commande, include: [Membre, PrixTube, ConsoMois]},
+                                                {model: Stock, include: [
+                                                    {model: Competition, include: TypeTube},
+                                                    {model: Restock, include: TypeTube},
+                                                    {model: TypeTube}
+                                                ]}
+                                            ]})
             .then(({count, rows}) => {
                 const message = `Il y a ${count} commandes qui correspondent à l'année de début ${anneeDebut}.`
                 res.json({message, data: rows})
@@ -47,7 +58,18 @@ module.exports = (app) => {
                 return res.status(400).json({message}) 
             }
 
-            return Saison.findAndCountAll({where: {anneeFin}, include: [ConsoVolant, Commande, Competition]})
+            return Saison.findAndCountAll({where: {anneeFin}, 
+                                            include: [
+                                                {model: ConsoVolant, include: [
+                                                    {model: ConsoMois, include: [PrixTube, Commande]},
+                                                    {model: TypeTube}]},
+                                                {model: Commande, include: [Membre, PrixTube, ConsoMois]},
+                                                {model: Stock, include: [
+                                                    {model: Competition, include: TypeTube},
+                                                    {model: Restock, include: TypeTube},
+                                                    {model: TypeTube}
+                                                ]}
+                                            ]})
             .then(({count, rows}) => {
                 const message = `Il y a ${count} saisons qui correspondent à l'année de fin ${anneeFin}.`
                 res.json({message, data: rows})
@@ -63,7 +85,7 @@ module.exports = (app) => {
             
             const query = req.query.active
 
-            // actif doit être egale à 'true' ou 'false'
+            // actif doit être egale à 'true' ou 'false
             if (query !== 'true' && query !== 'false') {
                 const message = `Le terme de recherche doit être 'true' ou 'false'.`
                 return res.status(400).json({message})
@@ -80,14 +102,18 @@ module.exports = (app) => {
                                 {model: ConsoMois, include: [PrixTube, Commande]},
                                 {model: TypeTube}]},
                             {model: Commande, include: [Membre, PrixTube, ConsoMois]},
-                            {model: Competition}
+                            {model: Stock, include: [
+                                {model: Competition, include: TypeTube},
+                                {model: Restock, include: TypeTube},
+                                {model: TypeTube}
+                            ]}
                         ]})
             .then(({count, rows}) => {
                 const message = `Il y a ${count} saisons qui correspondent.`
                 res.json({message, data: rows})
             })
             .catch(err => {
-                const message = `La liste des saisons n'a pas pu être récupérée. Réessayez dans quelques instants.`
+                const message = `La saison active n'a pas pu être récupérée. Réessayez dans quelques instants.`
                 res.status(500).json({message, data: err})
             })
         }
@@ -99,7 +125,11 @@ module.exports = (app) => {
                                 {model: ConsoMois, include: [PrixTube, Commande]},
                                 {model: TypeTube}]},
                             {model: Commande, include: [Membre, PrixTube, ConsoMois]},
-                            {model: Competition}
+                            {model: Stock, include: [
+                                {model: Competition, include: TypeTube},
+                                {model: Restock, include: TypeTube},
+                                {model: TypeTube}
+                            ]}
                         ]})
         .then(saisons => {
             const message = 'La liste des saisons a bien été récupérée.'

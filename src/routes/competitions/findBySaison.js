@@ -1,4 +1,4 @@
-const { Competition } = require('../../db/sequelize')
+const { Competition, TypeTube } = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
@@ -19,7 +19,7 @@ module.exports = (app) => {
         } 
 
         //recherche standard
-        return Competition.findAndCountAll({where: {idSaison}})
+        return Competition.findAndCountAll({where: {idSaison}, order: [ ['id', 'DESC'] ], include: TypeTube})
         .then(({count, rows}) => {
             const message = `Il y a ${count} competitions qui correspondent à l'idSaison ${idSaison}.`
             res.json({message, data: rows})

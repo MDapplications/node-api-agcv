@@ -1,9 +1,9 @@
-const { Competition } = require('../../db/sequelize')
+const { Competition, TypeTube } = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 module.exports = (app) => {
     app.get('/api/competitions/:id', auth, (req, res) => {
-        Competition.findByPk(req.params.id)
+        Competition.findByPk(req.params.id, {include: TypeTube})
         .then(compet => {
             //gestion de l'erreur 404
             if(compet === null) {

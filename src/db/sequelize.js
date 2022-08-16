@@ -10,8 +10,8 @@ const PrixTubeModel = require('../models/PrixTube')
 const RestockModel = require('../models/Restock')
 const TypeTubeModel = require('../models/TypeTube')
 const ConsoVolantModel = require('../models/ConsoVolant')
+const StockModel = require('../models/Stock')
 const UserModel = require('../models/User')
-
 
 
 //Configuration de la Base de données
@@ -71,6 +71,7 @@ const PrixTube = PrixTubeModel(sequelize, DataTypes)
 const Restock = RestockModel(sequelize, DataTypes)
 const TypeTube = TypeTubeModel(sequelize, DataTypes)
 const ConsoVolant = ConsoVolantModel(sequelize, DataTypes)
+const Stock = StockModel(sequelize, DataTypes)
 const User = UserModel(sequelize, DataTypes)
 
 //-----------------------------------------------------------------
@@ -83,12 +84,12 @@ ConsoVolant.belongsTo(Saison, {foreignKey: 'idSaison'})
 //Relation OneToMany Saison -> Restocks :
 Saison.hasMany(Restock, {foreignKey: 'idSaison', onDelete: 'CASCADE'})
 Restock.belongsTo(Saison, {foreignKey: 'idSaison'})
-//Relation OneToMany Saison -> Competitions :
-Saison.hasMany(Competition, {foreignKey: 'idSaison', onDelete: 'CASCADE'})
-Competition.belongsTo(Saison, {foreignKey: 'idSaison'})
 //Relation OneToMany Saison -> Commandes :
 Saison.hasMany(Commande, {foreignKey: 'idSaison', onDelete: 'CASCADE'})
 Commande.belongsTo(Saison, {foreignKey: 'idSaison'})
+//Relation OneToMany Saison -> Stock :
+Saison.hasMany(Stock, {foreignKey: 'idSaison', onDelete: 'CASCADE'})
+Stock.belongsTo(Saison, {foreignKey: 'idSaison'})
 
 
 //Relations TypeTube :
@@ -96,6 +97,15 @@ Commande.belongsTo(Saison, {foreignKey: 'idSaison'})
 //Relation OneToMany TypeTube -> PrixTube :
 TypeTube.hasMany(PrixTube, {foreignKey: 'idTypeTube', onDelete: 'CASCADE'})
 PrixTube.belongsTo(TypeTube, {foreignKey: 'idTypeTube'})
+//Relation OneToMany TypeTube -> Competition :
+TypeTube.hasMany(Competition, {foreignKey: 'idTypeTube', onDelete: 'CASCADE'})
+Competition.belongsTo(TypeTube, {foreignKey: 'idTypeTube'})
+//Relation OneToMany TypeTube -> Restock :
+TypeTube.hasMany(Restock, {foreignKey: 'idTypeTube', onDelete: 'CASCADE'})
+Restock.belongsTo(TypeTube, {foreignKey: 'idTypeTube'})
+//Relation OneToMany TypeTube -> Stock :
+TypeTube.hasMany(Stock, {foreignKey: 'idTypeTube', onDelete: 'CASCADE'})
+Stock.belongsTo(TypeTube, {foreignKey: 'idTypeTube'})
 
 
 //Relations ConsoVolant :
@@ -134,6 +144,16 @@ Membre.hasMany(Commande, {foreignKey: 'idMembre', onDelete: 'CASCADE'})
 Commande.belongsTo(Membre, {foreignKey: 'idMembre'})
 
 
+//Relations Stock :
+
+//Relation OneToMany Stock -> Restock :
+Stock.hasMany(Restock, {foreignKey: 'idStock', onDelete: 'CASCADE'})
+Restock.belongsTo(Stock, {foreignKey: 'idStock'})
+//Relation OneToMany Stock -> Competition :
+Stock.hasMany(Competition, {foreignKey: 'idStock', onDelete: 'CASCADE'})
+Competition.belongsTo(Stock, {foreignKey: 'idStock'})
+
+
 
 //-----------------------------------------------------------------
 
@@ -159,5 +179,5 @@ const initDb = () => {
 
 //exports
 module.exports = { 
-  initDb, User, Saison, Commande, Competition, ConsoMois, Membre, PrixTube, Restock, TypeTube, ConsoVolant
+  initDb, User, Saison, Commande, Competition, ConsoMois, Membre, PrixTube, Restock, TypeTube, ConsoVolant, Stock
 } 

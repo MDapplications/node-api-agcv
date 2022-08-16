@@ -17,7 +17,7 @@ module.exports = (app) => {
                 return res.status(400).json({message: err.message, data: err})
             }
             const message = `La consomation de volant n'a pas pu être ajouté. Réessayez dans quelques instants.`
-            res.status(500).json({message, data: error})
+            res.status(500).json({message, data: err})
         })
     })
 }
