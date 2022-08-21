@@ -23,12 +23,12 @@ module.exports = (app) => {
             return Saison.findAndCountAll({where: {anneeDebut}, 
                                             include: [
                                                 {model: ConsoVolant, include: [
-                                                    {model: ConsoMois, include: [PrixTube, Commande]},
+                                                    {model: ConsoMois, include: [PrixTube, Commande, Restock]},
                                                     {model: TypeTube}]},
                                                 {model: Commande, include: [Membre, PrixTube, ConsoMois]},
                                                 {model: Stock, include: [
                                                     {model: Competition, include: TypeTube},
-                                                    {model: Restock, include: TypeTube},
+                                                    {model: Restock, include: [TypeTube, {model: ConsoMois, include: [PrixTube]}]},
                                                     {model: TypeTube}
                                                 ]}
                                             ]})
@@ -61,12 +61,12 @@ module.exports = (app) => {
             return Saison.findAndCountAll({where: {anneeFin}, 
                                             include: [
                                                 {model: ConsoVolant, include: [
-                                                    {model: ConsoMois, include: [PrixTube, Commande]},
+                                                    {model: ConsoMois, include: [PrixTube, Commande, Restock]},
                                                     {model: TypeTube}]},
                                                 {model: Commande, include: [Membre, PrixTube, ConsoMois]},
                                                 {model: Stock, include: [
                                                     {model: Competition, include: TypeTube},
-                                                    {model: Restock, include: TypeTube},
+                                                    {model: Restock, include: [TypeTube, {model: ConsoMois, include: [PrixTube]}]},
                                                     {model: TypeTube}
                                                 ]}
                                             ]})
@@ -99,12 +99,12 @@ module.exports = (app) => {
                         order: [ ['anneeDebut', 'DESC'] ], 
                         include: [
                             {model: ConsoVolant, include: [
-                                {model: ConsoMois, include: [PrixTube, Commande]},
+                                {model: ConsoMois, include: [PrixTube, Commande, Restock]},
                                 {model: TypeTube}]},
                             {model: Commande, include: [Membre, PrixTube, ConsoMois]},
                             {model: Stock, include: [
                                 {model: Competition, include: TypeTube},
-                                {model: Restock, include: TypeTube},
+                                {model: Restock, include: [TypeTube, {model: ConsoMois, include: [PrixTube]}]},
                                 {model: TypeTube}
                             ]}
                         ]})
@@ -122,12 +122,12 @@ module.exports = (app) => {
         Saison.findAll({order: [ ['id', 'DESC'] ], 
                         include: [
                             {model: ConsoVolant, include: [
-                                {model: ConsoMois, include: [PrixTube, Commande]},
+                                {model: ConsoMois, include: [PrixTube, Commande, Restock]},
                                 {model: TypeTube}]},
                             {model: Commande, include: [Membre, PrixTube, ConsoMois]},
                             {model: Stock, include: [
                                 {model: Competition, include: TypeTube},
-                                {model: Restock, include: TypeTube},
+                                {model: Restock, include: [TypeTube, {model: ConsoMois, include: [PrixTube]}]},
                                 {model: TypeTube}
                             ]}
                         ]})

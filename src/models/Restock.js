@@ -36,6 +36,14 @@ module.exports = (sequelize, DataTypes) => {
                 isInt: { msg: `Utilisez uniquement des nombres entiers pour l'idTypeTube.`},
                 notNull: { msg: `l'idTypeTube est une propriété requise.`},
             }
+        },
+        idSaison: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                isInt: { msg: `Utilisez uniquement des nombres entiers pour l'idSaison.`},
+                notNull: { msg: `l'idSaison est une propriété requise.`},
+            }
         }
     }, 
     {

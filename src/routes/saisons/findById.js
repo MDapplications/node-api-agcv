@@ -1,4 +1,4 @@
-const { Saison, ConsoVolant, Commande, Competition, Stock, Restock, TypeTube} = require('../../db/sequelize')
+const { Saison, ConsoVolant, Commande, Competition, Stock, Restock, TypeTube, PrixTube, ConsoMois, Membre} = require('../../db/sequelize')
 const auth = require('../../auth/auth')
 
 
@@ -6,12 +6,12 @@ module.exports = (app) => {
     app.get('/api/saisons/:id', auth, (req, res) => {
         Saison.findByPk(req.params.id, {include: [
             {model: ConsoVolant, include: [
-                {model: ConsoMois, include: [PrixTube, Commande]},
+                {model: ConsoMois, include: [PrixTube, Commande, Restock]},
                 {model: TypeTube}]},
             {model: Commande, include: [Membre, PrixTube, ConsoMois]},
             {model: Stock, include: [
                 {model: Competition, include: TypeTube},
-                {model: Restock, include: TypeTube},
+                {model: Restock, include: [TypeTube, {model: ConsoMois, include: [PrixTube]}]},
                 {model: TypeTube}
             ]}
         ]})
