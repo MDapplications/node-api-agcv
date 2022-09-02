@@ -79,78 +79,80 @@ const User = UserModel(sequelize, DataTypes)
 //Relations Saison :
 
 //Relation OneToMany Saison -> ConsoVolants :
-Saison.hasMany(ConsoVolant, {foreignKey: 'idSaison', onDelete: 'CASCADE'})
+Saison.hasMany(ConsoVolant, {foreignKey: 'idSaison', onDelete: 'CASCADE', hooks: true})
 ConsoVolant.belongsTo(Saison, {foreignKey: 'idSaison'})
 //Relation OneToMany Saison -> Restocks :
-Saison.hasMany(Restock, {foreignKey: 'idSaison', onDelete: 'CASCADE'})
+Saison.hasMany(Restock, {foreignKey: 'idSaison', onDelete: 'CASCADE', hooks: true})
 Restock.belongsTo(Saison, {foreignKey: 'idSaison'})
 //Relation OneToMany Saison -> Commandes :
-Saison.hasMany(Commande, {foreignKey: 'idSaison', onDelete: 'CASCADE'})
+Saison.hasMany(Commande, {foreignKey: 'idSaison', onDelete: 'CASCADE', hooks: true})
 Commande.belongsTo(Saison, {foreignKey: 'idSaison'})
 //Relation OneToMany Saison -> Stock :
-Saison.hasMany(Stock, {foreignKey: 'idSaison', onDelete: 'CASCADE'})
+Saison.hasMany(Stock, {foreignKey: 'idSaison', onDelete: 'CASCADE', hooks: true})
 Stock.belongsTo(Saison, {foreignKey: 'idSaison'})
-
+//Relation OneToMany Saison -> Competition :
+Saison.hasMany(Competition, {foreignKey: 'idSaison', onDelete: 'CASCADE', hooks: true})
+Competition.belongsTo(Saison, {foreignKey: 'idSaison'})
 
 //Relations TypeTube :
 
 //Relation OneToMany TypeTube -> PrixTube :
-TypeTube.hasMany(PrixTube, {foreignKey: 'idTypeTube', onDelete: 'CASCADE'})
+TypeTube.hasMany(PrixTube, {foreignKey: 'idTypeTube', onDelete: 'CASCADE', hooks: true})
 PrixTube.belongsTo(TypeTube, {foreignKey: 'idTypeTube'})
 //Relation OneToMany TypeTube -> Competition :
-TypeTube.hasMany(Competition, {foreignKey: 'idTypeTube', onDelete: 'CASCADE'})
+TypeTube.hasMany(Competition, {foreignKey: 'idTypeTube', onDelete: 'CASCADE', hooks: true})
 Competition.belongsTo(TypeTube, {foreignKey: 'idTypeTube'})
 //Relation OneToMany TypeTube -> Restock :
-TypeTube.hasMany(Restock, {foreignKey: 'idTypeTube', onDelete: 'CASCADE'})
+TypeTube.hasMany(Restock, {foreignKey: 'idTypeTube', onDelete: 'CASCADE', hooks: true})
 Restock.belongsTo(TypeTube, {foreignKey: 'idTypeTube'})
 //Relation OneToMany TypeTube -> Stock :
-TypeTube.hasMany(Stock, {foreignKey: 'idTypeTube', onDelete: 'CASCADE'})
+TypeTube.hasMany(Stock, {foreignKey: 'idTypeTube', onDelete: 'CASCADE', hooks: true})
 Stock.belongsTo(TypeTube, {foreignKey: 'idTypeTube'})
 
 
 //Relations ConsoVolant :
 
 //Relation OneToOne ConsoVolant -> TypeTube :
-TypeTube.hasOne(ConsoVolant, {foreignKey: 'idTypeTube', onDelete: 'CASCADE'})
+TypeTube.hasOne(ConsoVolant, {foreignKey: 'idTypeTube'})
 ConsoVolant.belongsTo(TypeTube, {foreignKey: 'idTypeTube'})
 //Relation OneToMany ConsoVolant -> ConsoMois :
-ConsoVolant.hasMany(ConsoMois, {foreignKey: 'idConsoVolant', onDelete: 'CASCADE'})
+ConsoVolant.hasMany(ConsoMois, {foreignKey: 'idConsoVolant', onDelete: 'CASCADE', hooks: true})
 ConsoMois.belongsTo(ConsoVolant, {foreignKey: 'idConsoVolant'})
 
 
 //Relations ConsoMois :
 
 //Relation OneToMany ConsoMois -> Restock :
-ConsoMois.hasMany(Restock, {foreignKey: 'idConsoMois', onDelete: 'CASCADE'})
+ConsoMois.hasMany(Restock, {foreignKey: 'idConsoMois', onDelete: 'CASCADE', hooks: true})
 Restock.belongsTo(ConsoMois, {foreignKey: 'idConsoMois'})
 //Relation OneToMany ConsoMois -> Commande :
-ConsoMois.hasMany(Commande, {foreignKey: 'idConsoMois', onDelete: 'CASCADE'})
+ConsoMois.hasMany(Commande, {foreignKey: 'idConsoMois', onDelete: 'CASCADE', hooks: true})
 Commande.belongsTo(ConsoMois, {foreignKey: 'idConsoMois'})
 
 //Relations PrixTube :
 
 //Relation OneToMany PrixTube -> ConsoMois :
-PrixTube.hasMany(ConsoMois, {foreignKey: 'idPrixTube', onDelete: 'CASCADE'})
+PrixTube.hasMany(ConsoMois, {foreignKey: 'idPrixTube'})
 ConsoMois.belongsTo(PrixTube, {foreignKey: 'idPrixTube'})
 //Relation OneToMany PrixTube -> ConsoMois :
-PrixTube.hasMany(Commande, {foreignKey: 'idPrixTube', onDelete: 'CASCADE'})
+PrixTube.hasMany(Commande, {foreignKey: 'idPrixTube', onDelete: 'CASCADE', hooks: true})
 Commande.belongsTo(PrixTube, {foreignKey: 'idPrixTube'})
 
 
 //Relations Membre :
 
 //Relation OneToMany Membres -> Commandes :
-Membre.hasMany(Commande, {foreignKey: 'idMembre', onDelete: 'CASCADE'})
+Membre.hasMany(Commande, {foreignKey: 'idMembre'})
 Commande.belongsTo(Membre, {foreignKey: 'idMembre'})
 
 
 //Relations Stock :
 
 //Relation OneToMany Stock -> Restock :
-Stock.hasMany(Restock, {foreignKey: 'idStock', onDelete: 'CASCADE'})
+Stock.hasMany(Restock, {foreignKey: 'idStock', onDelete: 'CASCADE', hooks: true})
 Restock.belongsTo(Stock, {foreignKey: 'idStock'})
 //Relation OneToMany Stock -> Competition :
-Stock.hasMany(Competition, {foreignKey: 'idStock', onDelete: 'CASCADE'})
+Stock.hasMany(Competition, {foreignKey: 'idStock', onDelete: 'CASCADE', hooks: true})
 Competition.belongsTo(Stock, {foreignKey: 'idStock'})
 
 
