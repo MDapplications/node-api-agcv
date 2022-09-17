@@ -119,18 +119,7 @@ module.exports = (app) => {
         }
 
         //findAll standard : 
-        Saison.findAll({order: [ ['id', 'DESC'] ], 
-                        include: [
-                            {model: ConsoVolant, include: [
-                                {model: ConsoMois, include: [PrixTube, Commande, Restock]},
-                                {model: TypeTube}]},
-                            {model: Commande, include: [Membre, PrixTube, ConsoMois]},
-                            {model: Stock, include: [
-                                {model: Competition, include: TypeTube},
-                                {model: Restock, include: [TypeTube, {model: ConsoMois, include: [PrixTube]}]},
-                                {model: TypeTube}
-                            ]}
-                        ]})
+        Saison.findAll({order: [ ['id', 'DESC'] ]})
         .then(saisons => {
             const message = 'La liste des saisons a bien été récupérée.'
             res.json({ message, data: saisons })
